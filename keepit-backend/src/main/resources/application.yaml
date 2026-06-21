@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: keepIt
+  datasource:
+    url: jdbc:postgresql://localhost:5432/keepIt
+    username: admin
+    password: keepIt_password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8080
+
+jwt:
+  secret: 4Z^XrroxR@dWxqf$mTTKwW$!@#qGr4P

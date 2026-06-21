@@ -1,0 +1,24 @@
+# IntelliJ
+.idea/
+*.iml
+
+# VSCode
+.vscode/
+
+# Java
+keepit-backend/target
+target/
+*.log
+
+# Node
+node_modules/
+dist/
+keepIt-frontend/node_modules
+
+# Env
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
