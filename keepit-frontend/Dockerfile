@@ -3,23 +3,23 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 
 COPY package*.json ./
-
 RUN npm ci
 
 COPY . .
 
-# Vite injeta em build time — obrigatório passar como ARG
 ARG VITE_API_URL
-ENV VITE_API_URL=$VITE_API_URL
+ENV NEXT_PUBLIC_API_URL=$ARG
 
 RUN npm run build
 
-FROM nginx:1.29-alpine
+FROM node:22-alpine
 
-COPY --from=builder /app/dist /usr/share/nginx/html
+WORKDIR /app
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/public ./public
 
-EXPOSE 80
+EXPOSE 3000
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["node", "server.js"]

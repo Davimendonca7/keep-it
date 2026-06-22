@@ -32,5 +32,5 @@ jobs:
           context: ./keepit-frontend
           push: true
           build-args: |
-            VITE_API_URL=${{ secrets.VITE_API_URL_PROD }}
+            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL_PROD }}
           tags: davimendonca7/keepit-frontend:develop
