@@ -8,7 +8,7 @@ RUN npm ci
 COPY . .
 
 ARG VITE_API_URL
-ENV NEXT_PUBLIC_API_URL=$ARG
+ENV NEXT_PUBLIC_API_URL=$VITE_API_URL
 
 RUN npm run build
 
@@ -18,7 +18,6 @@ WORKDIR /app
 
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/public ./public
 
 EXPOSE 3000
 
