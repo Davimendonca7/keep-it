@@ -1,2 +1,36 @@
+name: Develop — Build & Push Docker Hub
+
 on:
+  push:
+    branches:
+      - develop
+
 jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login no Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build e Push — Backend
+        uses: docker/build-push-action@v5
+        with:
+          context: ./keepit-backend
+          push: true
+          tags: davimendonca7/keepit-backend:develop
+
+      - name: Build e Push — Frontend
+        uses: docker/build-push-action@v5
+        with:
+          context: ./keepit-frontend
+          push: true
+          build-args: |
+            VITE_API_URL=${{ secrets.VITE_API_URL_PROD }}
+          tags: davimendonca7/keepit-frontend:develop
