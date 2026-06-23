@@ -32,14 +32,12 @@ public class CategoryService {
 
     public List<CategoryResponseDto> listCategories(TransactionType type) {
         String username = UserService.getAuthenticatedUsername();
-        System.out.println(username);
 
         List<Category> categories =
-//                type != null
-//                ? categoryRepository.findAllByUserUsernameAndType(username, type)
-//                :
+                type != null
+                ? categoryRepository.findAllByUserEmailAndType(username, type)
+                :
                 categoryRepository.findAllByUserEmail(username);
-        System.out.println(categories);
 
         return categories.stream().map(CategoryResponseDto::new).toList();
     }

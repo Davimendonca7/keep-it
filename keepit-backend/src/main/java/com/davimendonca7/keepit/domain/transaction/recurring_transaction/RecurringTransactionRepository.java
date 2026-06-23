@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface RecurringTransactionRepository extends JpaRepository<RecurringTransaction, Long> {
     Boolean existsByCategoryId(Long categoryId);
-    Optional<RecurringTransaction> findByIdAndUserUsername(Long id, String username);
-    List<RecurringTransaction> findAllByUserUsername(String username);
-    List<RecurringTransaction> findAllByUserUsernameAndActive(String username, boolean active);
+    Optional<RecurringTransaction> findByIdAndUserEmail(Long id, String username);
+    List<RecurringTransaction> findAllByUserEmail(String username);
+    List<RecurringTransaction> findAllByUserEmailAndActive(String username, boolean active);
 }

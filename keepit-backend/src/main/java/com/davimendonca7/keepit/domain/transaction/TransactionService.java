@@ -21,10 +21,11 @@ public class TransactionService {
 
     public TransactionResponseDto createTransaction(TransactionRequestDto dto) {
         User user = userService.getAuthenticatedUser();
-        String username = user.getUsername();
 
-        Category category = categoryRepository.findByIdAndUserEmail(dto.categoryId(), username)
+
+        Category category = categoryRepository.findByIdAndUserEmail(dto.categoryId(), UserService.getAuthenticatedUsername())
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+
 
         if (!category.getType().equals(dto.type())) {
             throw new RuntimeException("O tipo da transação deve ser igual ao tipo da categoria");
