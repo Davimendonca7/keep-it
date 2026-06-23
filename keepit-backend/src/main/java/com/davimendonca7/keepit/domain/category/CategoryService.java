@@ -32,15 +32,21 @@ public class CategoryService {
 
     public List<CategoryResponseDto> listCategories(TransactionType type) {
         String username = UserService.getAuthenticatedUsername();
-        List<Category> categories = type != null
-                ? categoryRepository.findAllByUserUsernameAndType(username, type)
-                : categoryRepository.findAllByUserUsername(username);
+        System.out.println(username);
+
+        List<Category> categories =
+//                type != null
+//                ? categoryRepository.findAllByUserUsernameAndType(username, type)
+//                :
+                categoryRepository.findAllByUserEmail(username);
+        System.out.println(categories);
+
         return categories.stream().map(CategoryResponseDto::new).toList();
     }
 
     public CategoryResponseDto updateCategory(Long id, CategoryRequestDto dto) {
         String username = UserService.getAuthenticatedUsername();
-        Category category = categoryRepository.findByIdAndUserUsername(id, username)
+        Category category = categoryRepository.findByIdAndUserEmail(id, username)
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
         category.setName(dto.name());
         category.setType(dto.type());
@@ -49,7 +55,7 @@ public class CategoryService {
 
     public void deleteCategory(Long id) {
         String username = UserService.getAuthenticatedUsername();
-        Category category = categoryRepository.findByIdAndUserUsername(id, username)
+        Category category = categoryRepository.findByIdAndUserEmail(id, username)
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
         if (transactionRepository.existsByCategoryId(id) || recurringTransactionRepository.existsByCategoryId(id)) {
             throw new RuntimeException("Categoria possui transações vinculadas e não pode ser excluída");

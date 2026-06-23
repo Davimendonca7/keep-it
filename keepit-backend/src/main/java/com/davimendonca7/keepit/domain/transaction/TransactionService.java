@@ -23,7 +23,7 @@ public class TransactionService {
         User user = userService.getAuthenticatedUser();
         String username = user.getUsername();
 
-        Category category = categoryRepository.findByIdAndUserUsername(dto.categoryId(), username)
+        Category category = categoryRepository.findByIdAndUserEmail(dto.categoryId(), username)
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
 
         if (!category.getType().equals(dto.type())) {
@@ -65,7 +65,7 @@ public class TransactionService {
         Transaction transaction = transactionRepository.findByIdAndUserUsername(id, username)
                 .orElseThrow(() -> new RuntimeException("Transação não encontrada"));
 
-        Category category = categoryRepository.findByIdAndUserUsername(dto.categoryId(), username)
+        Category category = categoryRepository.findByIdAndUserEmail(dto.categoryId(), username)
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
 
         if (!category.getType().equals(dto.type())) {

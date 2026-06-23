@@ -30,7 +30,7 @@ public class RecurringTransactionService {
         User user = userService.getAuthenticatedUser();
         String username = user.getUsername();
 
-        Category category = categoryRepository.findByIdAndUserUsername(dto.categoryId(), username)
+        Category category = categoryRepository.findByIdAndUserEmail(dto.categoryId(), username)
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
 
         RecurringTransaction rt = RecurringTransaction.builder()
@@ -56,7 +56,7 @@ public class RecurringTransactionService {
         RecurringTransaction rt = recurringTransactionRepository.findByIdAndUserUsername(id, username)
                 .orElseThrow(() -> new RuntimeException("Transação recorrente não encontrada"));
 
-        Category category = categoryRepository.findByIdAndUserUsername(dto.categoryId(), username)
+        Category category = categoryRepository.findByIdAndUserEmail(dto.categoryId(), username)
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
 
         rt.setDescription(dto.description());
