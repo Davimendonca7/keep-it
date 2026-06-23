@@ -214,7 +214,7 @@ export function TransactionFormDialog({
                   <Button
                     type="button"
                     variant="outline"
-                    className="h-10 justify-start text-left font-normal"
+                    className="h-10 w-full justify-start text-left font-normal"
                   >
                     <CalendarIcon className="mr-2 h-4 w-4 text-muted-foreground" />
                     {selectedDate

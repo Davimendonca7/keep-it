@@ -11,7 +11,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
     Boolean existsByCategoryId(Long categoryId);
 
-    Optional<Transaction> findByIdAndUserUsername(Long id, String email);
+    Optional<Transaction> findByIdAndUserEmail(Long id, String email);
 
     @Query("SELECT t FROM Transaction t WHERE t.user.email = :email AND MONTH(t.date) = :month AND YEAR(t.date) = :year")
     List<Transaction> findByUserUsernameAndMonthAndYear(

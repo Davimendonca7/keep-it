@@ -63,7 +63,7 @@ public class TransactionService {
 
     public TransactionResponseDto updateTransaction(Long id, TransactionRequestDto dto) {
         String username = UserService.getAuthenticatedUsername();
-        Transaction transaction = transactionRepository.findByIdAndUserUsername(id, username)
+        Transaction transaction = transactionRepository.findByIdAndUserEmail(id, username)
                 .orElseThrow(() -> new RuntimeException("Transação não encontrada"));
 
         Category category = categoryRepository.findByIdAndUserEmail(dto.categoryId(), username)
@@ -84,14 +84,14 @@ public class TransactionService {
 
     public void deleteTransaction(Long id) {
         String username = UserService.getAuthenticatedUsername();
-        Transaction transaction = transactionRepository.findByIdAndUserUsername(id, username)
+        Transaction transaction = transactionRepository.findByIdAndUserEmail(id, username)
                 .orElseThrow(() -> new RuntimeException("Transação não encontrada"));
         transactionRepository.delete(transaction);
     }
 
     public TransactionResponseDto confirmTransaction(Long id) {
         String username = UserService.getAuthenticatedUsername();
-        Transaction transaction = transactionRepository.findByIdAndUserUsername(id, username)
+        Transaction transaction = transactionRepository.findByIdAndUserEmail(id, username)
                 .orElseThrow(() -> new RuntimeException("Transação não encontrada"));
 
         if (transaction.getStatus() == TransactionStatus.COMPLETED) {

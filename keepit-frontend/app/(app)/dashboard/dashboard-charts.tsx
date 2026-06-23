@@ -148,8 +148,8 @@ export function DashboardCharts({ pieData, barData }: DashboardChartsProps) {
                   }}
                 />
                 <Legend />
-                <Bar dataKey="Receitas" fill="hsl(var(--chart-2))" />
-                <Bar dataKey="Despesas" fill="hsl(var(--chart-1))" />
+                <Bar dataKey="Receitas" fill="hsl(var(--chart-1))" />
+                <Bar dataKey="Despesas" fill="hsl(var(--chart-2))" />
               </BarChart>
             </ResponsiveContainer>
           </div>
