@@ -30,7 +30,11 @@ public class SecurityConfig {
     private final UserAuthenticationFilter userAuthenticationFilter;
     private final UserDetailsImplService userDetailsImplService;
 
-    public static String[] endpointsAllowed = {"/auth/register", "/auth/login"};
+    public static String[] endpointsAllowed = {
+            "/auth/register",
+            "/auth/login",
+            "/actuator/health"
+    };
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -52,6 +56,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/auth/register", "/auth/login").permitAll()
+                        .requestMatchers("/actuator/health").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
@@ -61,7 +66,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://192.168.18.150:3000"));
+        configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://192.168.18.150:3000", "https://keep-it-blond.vercel.app"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Cache-Control"));
         configuration.setAllowCredentials(true);
